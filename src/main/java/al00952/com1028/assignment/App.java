@@ -1,9 +1,9 @@
 package al00952.com1028.assignment;
 
 /**
- * This class is used to run the application. 
+ * This class is used to run the application and output all requirements. 
  * 
- * This will eventually contain the outputs for Requirements 1, 2, 3 from Set H.
+ * This will eventually contain the outputs for requirements 1, 2, 3 from Set H.
  * 
  * -- Set H --
  * Requirement 1 - List the products in each productline
@@ -16,8 +16,16 @@ package al00952.com1028.assignment;
 public class App {
 	public static void main(String[] args) {
 		// Requirement 1 Output
+		System.out.println("Requirement 1:");
 		ProductDAO requirement1 = new ProductDAO();
 		requirement1.getProductsFromProductLines();
+		
+		// Requirement 2 Output
+		System.out.println("Requirement 2:\n----------------------------------");
+		PaymentDAO requirement2 = new PaymentDAO();
+		requirement2.getTotalPaymentsbyDate();
+		
+		// Requirement 3 Output
 
 	}
 }
