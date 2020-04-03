@@ -17,6 +17,7 @@ import java.sql.Statement;
  * my username and password is 'root' and 'password123', but yours may be different)
  * 
  * @author Provided by Santanu Dash
+ * @author Modified by Andy Lee
  *
  */
 public class BaseQuery {
@@ -37,6 +38,12 @@ public class BaseQuery {
 		String query = "select * from " + tableName;
 		Statement s = con.createStatement();
 		ResultSet rs = s.executeQuery(query);
+		return rs;
+	}
+	
+	// This method is used for JUnit Test Cases only - verifies correct data retrieval from ClassicModels DB
+	protected ResultSet customSQLstatement(String query) throws SQLException {
+		ResultSet rs = con.createStatement().executeQuery(query);
 		return rs;
 	}
 

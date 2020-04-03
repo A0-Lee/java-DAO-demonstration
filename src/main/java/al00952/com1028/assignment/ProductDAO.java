@@ -25,9 +25,9 @@ public class ProductDAO {
 	}
 
 	/**
-	 * This method prints out the list of products in each productline.
+	 * This method prints out the list of products in each product line.
 	 * 
-	 * @return an ArrayList containing ArrayList of Products (each ArrayList is a productline)
+	 * @return an ArrayList containing ArrayList of Products (each ArrayList is a product line)
 	 */
 	public ArrayList<ArrayList<Products>> getProductsFromProductLines() {
 		// This ArrayList stores all the productLines and its products 
@@ -40,25 +40,47 @@ public class ProductDAO {
 			// This ArrayList stores all the products for a singular productLine
 			ArrayList<Products> aProductLine = new ArrayList<Products>();
 			Iterator<Products> itr = this.allProducts.iterator();
-			System.out.println("------------- " + productLine.getProductLine() + " -------------");
 			while (itr.hasNext()) {
 				Products product = itr.next();
 				if (product.getProductLine().equals(productLine.getProductLine())) {
 					aProductLine.add(product);
-					System.out.println(product.getProductName());
 				}
 			}
-			
 			productsInProductLines.add(aProductLine);
-			System.out.println("");
 		}
 		return productsInProductLines;
 	}
 	
 	/**
+	 * @return A String containing the Products in Each Product line
+	 */
+	public String printProductsFromProductLines() {
+		StringBuffer buffer = new StringBuffer();
+		int i = 0;
+		
+		for (ArrayList<Products> productLines : this.getProductsFromProductLines()) {
+			buffer.append("------------- ");
+			buffer.append(this.allProductLines.get(i).getProductLine());
+			buffer.append(" -------------\r\n");
+			for (Products product : productLines) {
+				buffer.append(product.getProductName());
+				buffer.append(" - [");
+				buffer.append(product.getProductCode());
+				buffer.append("]\r\n");
+			}
+			buffer.append("\r\n");
+			i++;
+		}
+		
+		System.out.println(buffer.toString());
+		return buffer.toString();
+		
+	}
+	
+	/**
 	 * This method creates a Product Object for each row in the products table.
 	 */
-	public void getAllProducts() {
+	public ArrayList<Products> getAllProducts() {
 
 		try {
 			ResultSet results = this.baseQuery.useTable("products");
@@ -84,6 +106,7 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return this.allProducts;
 	}
 
 }

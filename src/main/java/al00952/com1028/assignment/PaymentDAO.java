@@ -23,12 +23,22 @@ public class PaymentDAO {
 		this.allPayments = new ArrayList<Payments>();
 	}
 	
-	public String getTotalPaymentsbyDate() {
+	public ArrayList<String> getTotalPaymentsByDate() {
+		// Populate this.allPayments and sort by Date
 		this.sortAllPaymentsbyDate();
-		StringBuffer buffer = new StringBuffer();
+		
+		ArrayList<String> totalPaymentsByDate = new ArrayList<String>();
 		
 		for (Payments payment : this.allPayments) {
-			//System.out.println("Date:  " + payment.getPaymentDate() + "   CustomerNumber:  " + payment.getCustomerNumber() + "   Amount:  " + String.format("%1$10.2f", payment.getAmount()) + "   CheckNumber:  " + payment.getCheckNumber());
+			totalPaymentsByDate.add("Date:  " + payment.getPaymentDate() + "  CustomerNumber:  " + payment.getCustomerNumber() + "  Amount:  " + String.format("%1$8.2f", payment.getAmount()) + "  CheckNumber:  " + payment.getCheckNumber());
+		}
+		return totalPaymentsByDate;
+	}
+	
+	public String printTotalPaymentsByDate() {
+		/*
+		StringBuffer buffer = new StringBuffer();
+		for (Payments payment : this.allPayments) {
 			buffer.append("Date: ");
 			buffer.append(payment.getPaymentDate());
 			buffer.append("   CustomerNumber:  ");
@@ -40,9 +50,17 @@ public class PaymentDAO {
 			buffer.append("\r\n");
 	
 		}
-		System.out.println(buffer);
+		System.out.println(buffer.toString());
 		return buffer.toString();
+		*/
 		
+		StringBuffer buffer = new StringBuffer();
+		for (String printPayments : this.getTotalPaymentsByDate()) {
+			buffer.append(printPayments);
+			buffer.append("\r\n");
+		}
+		System.out.println(buffer.toString());
+		return buffer.toString();
 	}
 	
 	public ArrayList<Payments> sortAllPaymentsbyDate() {
@@ -62,14 +80,14 @@ public class PaymentDAO {
 				Date paymentDate = results.getDate("paymentDate");
 				double amount = results.getDouble("amount");
 				
-				Payments payment = new Payments(customerNumber, checkNumber, paymentDate, amount);
-				this.allPayments.add(payment);
+				Payments newPayment = new Payments(customerNumber, checkNumber, paymentDate, amount);
+				this.allPayments.add(newPayment);
 			}
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return allPayments;
+		return this.allPayments;
 		
 	}
 
