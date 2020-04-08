@@ -11,13 +11,13 @@ import java.util.Date;
  * @author Andy Lee
  *
  */
-public class Payments implements Comparable<Payments> {
+public class Payment implements Comparable<Payment> {
 	private int customerNumber;
 	private String checkNumber;
 	private Date paymentDate;
 	private double amount;
 
-	public Payments(int customerNumber, String checkNumber, Date paymentDate, double amount) {
+	public Payment(int customerNumber, String checkNumber, Date paymentDate, double amount) {
 		this.customerNumber = customerNumber;
 		this.checkNumber = checkNumber;
 		this.paymentDate = paymentDate;
@@ -40,7 +40,7 @@ public class Payments implements Comparable<Payments> {
 		return amount;
 	}
 
-	public int compareTo(Payments payment) {
+	public int compareTo(Payment payment) {
 		return this.getPaymentDate().compareTo(payment.getPaymentDate());
 	}
 

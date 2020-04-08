@@ -12,11 +12,11 @@ package al00952.com1028.assignment;
  * @author Andy Lee
  *
  */
-public class ProductLines {
+public class ProductLine {
 	private String productLine;
 	private String textDescription;
 
-	public ProductLines(String productLine, String textDescription) {
+	public ProductLine(String productLine, String textDescription) {
 		this.productLine = productLine;
 		this.textDescription = textDescription;
 	}

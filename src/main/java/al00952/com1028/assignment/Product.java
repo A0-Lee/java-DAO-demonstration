@@ -9,7 +9,7 @@ package al00952.com1028.assignment;
  * @author Andy Lee
  *
  */
-public class Products {
+public class Product {
 	private String productCode;
 	private String productName;
 	private String productLine;
@@ -20,7 +20,7 @@ public class Products {
 	private double buyPrice;
 	private double MSRP;
 
-	public Products(String productCode, String productName, String productLine, String productScale,
+	public Product(String productCode, String productName, String productLine, String productScale,
 			String productVendor, String productDescription, int quantityInStock, double buyPrice, double MSRP) {
 		this.productCode = productCode;
 		this.productName = productName;

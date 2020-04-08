@@ -16,11 +16,11 @@ import java.util.Date;
  */
 public class PaymentDAO {
 	private BaseQuery baseQuery;
-	private ArrayList<Payments> allPayments;
+	private ArrayList<Payment> allPayments;
 	
 	public PaymentDAO() {
 		this.baseQuery = new BaseQuery("root", "password123");
-		this.allPayments = new ArrayList<Payments>();
+		this.allPayments = new ArrayList<Payment>();
 	}
 	
 	public ArrayList<String> getTotalPaymentsByDate() {
@@ -29,30 +29,13 @@ public class PaymentDAO {
 		
 		ArrayList<String> totalPaymentsByDate = new ArrayList<String>();
 		
-		for (Payments payment : this.allPayments) {
+		for (Payment payment : this.allPayments) {
 			totalPaymentsByDate.add("Date:  " + payment.getPaymentDate() + "  CustomerNumber:  " + payment.getCustomerNumber() + "  Amount:  " + String.format("%1$8.2f", payment.getAmount()) + "  CheckNumber:  " + payment.getCheckNumber());
 		}
 		return totalPaymentsByDate;
 	}
 	
 	public String printTotalPaymentsByDate() {
-		/*
-		StringBuffer buffer = new StringBuffer();
-		for (Payments payment : this.allPayments) {
-			buffer.append("Date: ");
-			buffer.append(payment.getPaymentDate());
-			buffer.append("   CustomerNumber:  ");
-			buffer.append(payment.getCustomerNumber());
-			buffer.append("   Amount:  ");
-			buffer.append(String.format("%1$10.2f", payment.getAmount()));
-			buffer.append("   CheckNumber:  ");
-			buffer.append(payment.getCheckNumber());
-			buffer.append("\r\n");
-	
-		}
-		System.out.println(buffer.toString());
-		return buffer.toString();
-		*/
 		
 		StringBuffer buffer = new StringBuffer();
 		for (String printPayments : this.getTotalPaymentsByDate()) {
@@ -63,13 +46,13 @@ public class PaymentDAO {
 		return buffer.toString();
 	}
 	
-	public ArrayList<Payments> sortAllPaymentsbyDate() {
+	public ArrayList<Payment> sortAllPaymentsbyDate() {
 		Collections.sort(this.getAllPayments());
 		return this.allPayments;
 	}
 	
 	
-	public ArrayList<Payments> getAllPayments() {
+	public ArrayList<Payment> getAllPayments() {
 		
 		try {
 			ResultSet results = this.baseQuery.useTable("payments");
@@ -80,7 +63,7 @@ public class PaymentDAO {
 				Date paymentDate = results.getDate("paymentDate");
 				double amount = results.getDouble("amount");
 				
-				Payments newPayment = new Payments(customerNumber, checkNumber, paymentDate, amount);
+				Payment newPayment = new Payment(customerNumber, checkNumber, paymentDate, amount);
 				this.allPayments.add(newPayment);
 			}
 				

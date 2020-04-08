@@ -28,6 +28,13 @@ public class App {
 		requirement2.printTotalPaymentsByDate();
 		
 		// Requirement 3 Output
+		System.out.println("Requirement 3:\n----------------------------------");
+		System.out.println("Customers with Orders greater than $25000:\n----------------------------------");
+	
+		OrderDAO o = new OrderDAO();
+		System.out.println(o.getResultsCustomerNumber());
+
+
 
 	}
 }

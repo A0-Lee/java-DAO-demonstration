@@ -22,7 +22,7 @@ public class Requirement2Test {
 	public void paymentTest() throws ParseException {		
 		Date testDate = this.dateConversion("2004-10-19");
 		
-		Payments payment = new Payments(103, "HQ336336", testDate, 6066.78);
+		Payment payment = new Payment(103, "HQ336336", testDate, 6066.78);
 		
 		assertEquals(103, payment.getCustomerNumber());
 		assertEquals("HQ336336", payment.getCheckNumber());
@@ -37,8 +37,8 @@ public class Requirement2Test {
 		
 		try {
 			ResultSet results = baseQuery.customSQLstatement("SELECT * FROM payments ORDER BY paymentDate");
-			ArrayList<Payments> expectedResults = new ArrayList<Payments>();
-			ArrayList<Payments> actualResults = paymentDAO.sortAllPaymentsbyDate();
+			ArrayList<Payment> expectedResults = new ArrayList<Payment>();
+			ArrayList<Payment> actualResults = paymentDAO.sortAllPaymentsbyDate();
 			
 			while(results.next()) {
 				int customerNumber = results.getInt("customerNumber");
@@ -46,7 +46,7 @@ public class Requirement2Test {
 				Date paymentDate = results.getDate("paymentDate");
 				double amount = results.getDouble("amount");
 				
-				Payments newPayment = new Payments(customerNumber, checkNumber, paymentDate, amount);
+				Payment newPayment = new Payment(customerNumber, checkNumber, paymentDate, amount);
 				
 				expectedResults.add(newPayment);
 			}

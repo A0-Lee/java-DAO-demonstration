@@ -13,7 +13,7 @@ public class Requirement1Test {
 
 	@Test
 	public void productTest() {
-		Products product = new Products("S10_1678", "1969 Harley Davidson Ultimate Chopper", "Motorcycles", "1:10", "Min Lin Diecast", "This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.", 7933, 48.81, 95.70);
+		Product product = new Product("S10_1678", "1969 Harley Davidson Ultimate Chopper", "Motorcycles", "1:10", "Min Lin Diecast", "This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.", 7933, 48.81, 95.70);
 		assertEquals("S10_1678", product.getProductCode());
 		assertEquals("1969 Harley Davidson Ultimate Chopper", product.getProductName());
 		assertEquals("Motorcycles", product.getProductLine());
@@ -27,7 +27,7 @@ public class Requirement1Test {
 
 	@Test
 	public void productLineTest() {
-		ProductLines productLine = new ProductLines("Ships", "The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value." );
+		ProductLine productLine = new ProductLine("Ships", "The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value." );
 		assertEquals("Ships", productLine.getProductLine());
 		assertEquals("The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.", productLine.getTextDescription());
 
@@ -49,7 +49,7 @@ public class Requirement1Test {
 		// The actual values for the ProductLines
 		ArrayList<String> actualProductLines = new ArrayList<String>();
 		
-		for (ProductLines productLine : productLineDAO.getAllProductLines()) {
+		for (ProductLine productLine : productLineDAO.getAllProductLines()) {
 			actualProductLines.add(productLine.getProductLine());
 		}
 		
@@ -190,8 +190,8 @@ public class Requirement1Test {
 	public void verifyProductDAOAgainstSQL() {
 		BaseQuery baseQuery = new BaseQuery("root", "password123");
 		ProductDAO productDAO = new ProductDAO();
-		ArrayList<ArrayList<Products>> actualResults = productDAO.getProductsFromProductLines();
- 		ArrayList<ArrayList<Products>> expectedResults = new ArrayList<ArrayList<Products>>();
+		ArrayList<ArrayList<Product>> actualResults = productDAO.getProductsFromProductLines();
+ 		ArrayList<ArrayList<Product>> expectedResults = new ArrayList<ArrayList<Product>>();
 		
 		try {
 			ResultSet resultsClassicCars = baseQuery.customSQLstatement("SELECT * FROM products WHERE productLine = 'Classic Cars'");
@@ -205,7 +205,7 @@ public class Requirement1Test {
 			ArrayList<ResultSet> resultsProductLines = new ArrayList<ResultSet>(Arrays.asList(resultsClassicCars, resultsMotorcycles, resultsPlanes, resultsShips, resultsTrains, resultsTrucksAndBuses, resultsVintageCars));
 
 			for (ResultSet results : resultsProductLines) {
-				ArrayList<Products> expectedProductLine = new ArrayList<Products>();
+				ArrayList<Product> expectedProductLine = new ArrayList<Product>();
 				while (results.next()) {
 					String productCode = results.getString("productCode");
 					String productName = results.getString("productName");
@@ -217,7 +217,7 @@ public class Requirement1Test {
 					double buyPrice = results.getDouble("buyPrice");
 					double MSRP = results.getDouble("MSRP");
 
-					Products newProduct = new Products(productCode, productName, productLine, productScale, productVendor,
+					Product newProduct = new Product(productCode, productName, productLine, productScale, productVendor,
 							productDescription, quantityInStock, buyPrice, MSRP);
 					
 					expectedProductLine.add(newProduct);
