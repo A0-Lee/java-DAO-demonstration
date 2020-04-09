@@ -1,7 +1,8 @@
 package al00952.com1028.assignment;
 
 /**
- * Template for an OrderDetail Object (i.e. a singular row with field data from the 'orderdetails' table).
+ * Template for an OrderDetail Object (i.e. a singular row with field data from
+ * the 'orderdetails' table).
  * 
  * This class is part of Requirement 3 (Set H).
  * 
@@ -14,8 +15,9 @@ public class OrderDetail {
 	private int quantityOrdered;
 	private double priceEach;
 	private int orderLineNumber;
-	
-	public OrderDetail(int orderNumber, String productCode, int quantityOrdered, double priceEach, int orderLineNumber) {
+
+	public OrderDetail(int orderNumber, String productCode, int quantityOrdered, double priceEach,
+			int orderLineNumber) {
 		this.orderNumber = orderNumber;
 		this.productCode = productCode;
 		this.quantityOrdered = quantityOrdered;

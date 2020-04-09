@@ -17,10 +17,10 @@ public class ProductDAO {
 	private ArrayList<Product> allProducts = new ArrayList<Product>();
 
 	public ProductDAO() {
-		this.baseQuery = new BaseQuery("root", "password123");
-		this.allProducts = this.getAllProducts();	
+		this.baseQuery = new BaseQuery();
+		this.allProducts = this.getAllProducts();
 	}
-	
+
 	private ArrayList<Product> getAllProducts() {
 		try {
 			ResultSet results = this.baseQuery.useTable("products");
@@ -47,7 +47,7 @@ public class ProductDAO {
 		}
 		return this.allProducts;
 	}
-	
+
 	public ArrayList<Product> returnAllProducts() {
 		return this.allProducts;
 	}

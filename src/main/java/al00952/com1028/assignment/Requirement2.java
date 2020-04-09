@@ -12,20 +12,20 @@ import java.util.ArrayList;
  */
 public class Requirement2 {
 	private PaymentDAO paymentDAO;
-	
+
 	public Requirement2() {
 		this.paymentDAO = new PaymentDAO();
 	}
-	
+
 	public String printMatchingRequirements() {
 		ArrayList<Payment> allPaymentsByDate = paymentDAO.getAllPaymentsByDate();
 		StringBuffer buffer = new StringBuffer();
-		
+
 		for (Payment payment : allPaymentsByDate) {
 			buffer.append("Date: ");
 			buffer.append(payment.getPaymentDate());
 			buffer.append("  CustomerNumber: ");
-			buffer.append(payment.getCustomerNumber());;
+			buffer.append(payment.getCustomerNumber());
 			buffer.append("  Amount: ");
 			buffer.append(String.format("%1$9.2f", payment.getAmount()));
 			buffer.append("  CheckNumber: ");
@@ -34,10 +34,10 @@ public class Requirement2 {
 		}
 		return buffer.toString();
 	}
-	
+
 	public static void main(String[] args) {
 		Requirement2 requirement2 = new Requirement2();
 		System.out.print(requirement2.printMatchingRequirements());
 	}
-	
+
 }

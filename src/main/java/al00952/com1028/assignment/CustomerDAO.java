@@ -15,22 +15,22 @@ public class CustomerDAO {
 	private BaseQuery baseQuery;
 	private ArrayList<Customer> allCustomers = new ArrayList<Customer>();
 	private ArrayList<String> resultsCustomerNames = new ArrayList<String>();
-	
+
 	public CustomerDAO() {
-		this.baseQuery = new BaseQuery("root", "password123");
+		this.baseQuery = new BaseQuery();
 		this.allCustomers = this.getAllCustomers();
 		this.resultsCustomerNames = this.findCustomerNames();
 	}
-	
+
 	public ArrayList<String> getResultsCustomerNames() {
 		return resultsCustomerNames;
 	}
-	
+
 	private ArrayList<String> findCustomerNames() {
 		OrderDAO orderDAO = new OrderDAO();
 		ArrayList<Integer> resultsCustomerNumbers = orderDAO.getResultsCustomerNumber();
 		ArrayList<String> resultsCustomerNames = new ArrayList<String>();
-		
+
 		for (int customerNumber : resultsCustomerNumbers) {
 			for (Customer customer : this.allCustomers) {
 				if (customer.getCustomerNumber() == customerNumber) {
@@ -40,12 +40,12 @@ public class CustomerDAO {
 		}
 		return resultsCustomerNames;
 	}
-	
+
 	private ArrayList<Customer> getAllCustomers() {
-		
+
 		try {
 			ResultSet results = this.baseQuery.useTable("customers");
-			
+
 			while (results.next()) {
 				int customerNumber = results.getInt("customerNumber");
 				String customerName = results.getString("customerName");
@@ -60,16 +60,18 @@ public class CustomerDAO {
 				String country = results.getString("country");
 				String salesRepEmployeeNumber = results.getString("salesRepEmployeeNumber");
 				double creditLimit = results.getDouble("creditLimit");
-				
-				Customer newCustomer = new Customer(customerNumber, customerName, contactLastName, contactFirstName, phoneNumber, addressLine1, addressLine2, city, state, postalCode, country, salesRepEmployeeNumber, creditLimit);
-				
+
+				Customer newCustomer = new Customer(customerNumber, customerName, contactLastName, contactFirstName,
+						phoneNumber, addressLine1, addressLine2, city, state, postalCode, country,
+						salesRepEmployeeNumber, creditLimit);
+
 				this.allCustomers.add(newCustomer);
 			}
-				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return this.allCustomers;
 	}
-	
+
 }

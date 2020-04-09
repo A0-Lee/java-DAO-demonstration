@@ -8,23 +8,30 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
+/**
+ * This class is used to run the test case for Requirement 2.
+ * 
+ * @author Andy Lee
+ *
+ */
 public class Requirement2Test {
-		
-	@Test 
+
+	@Test
 	public void requirement2Test() {
-		BaseQuery baseQuery = new BaseQuery("root", "password123");
+		BaseQuery baseQuery = new BaseQuery();
 		Requirement2 requirement2 = new Requirement2();
-		
+
 		try {
-			ResultSet results = baseQuery.customSQLstatement("SELECT customerNumber, checkNumber, paymentDate, amount FROM payments ORDER BY paymentDate");
+			ResultSet results = baseQuery.customSQLstatement(
+					"SELECT customerNumber, checkNumber, paymentDate, amount FROM payments ORDER BY paymentDate");
 			StringBuffer buffer = new StringBuffer();
-			
-			while(results.next()) {
+
+			while (results.next()) {
 				int customerNumber = results.getInt("customerNumber");
 				String checkNumber = results.getString("checkNumber");
 				Date paymentDate = results.getDate("paymentDate");
 				double amount = results.getDouble("amount");
-				
+
 				buffer.append("Date: ");
 				buffer.append(paymentDate);
 				buffer.append("  CustomerNumber: ");
@@ -35,16 +42,16 @@ public class Requirement2Test {
 				buffer.append(checkNumber);
 				buffer.append("\n");
 			}
-			
+
 			System.out.print("\n--------------------------------\nRequirement 2:\n--------------------------------\n");
 			System.out.print(buffer.toString());
-			
+
 			assertEquals(buffer.toString(), requirement2.printMatchingRequirements());
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 }

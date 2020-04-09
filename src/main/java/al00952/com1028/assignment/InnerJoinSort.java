@@ -3,7 +3,8 @@ package al00952.com1028.assignment;
 import java.util.Comparator;
 
 /**
- * Used to sort Inner Join Objects in an ArrayList via their customerNumber attribute.
+ * Used to sort InnerJoin Objects in an ArrayList via their customerNumber
+ * attribute.
  * 
  * This class is part of Requirement 3 (Set H).
  * 
@@ -11,7 +12,7 @@ import java.util.Comparator;
  *
  */
 public class InnerJoinSort implements Comparator<InnerJoin> {
-	
+
 	public int compare(InnerJoin o1, InnerJoin o2) {
 		return o1.getCustomerNumber() - o2.getCustomerNumber();
 	}

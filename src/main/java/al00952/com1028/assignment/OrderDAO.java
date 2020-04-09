@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  * Create a Data Access Object for the Order class.
  * 
@@ -18,14 +17,14 @@ public class OrderDAO {
 	private OrderDetailDAO orderDetailDAO;
 	private ArrayList<Order> allOrders = new ArrayList<Order>();
 	private ArrayList<Integer> resultsCustomerNumber = new ArrayList<Integer>();
-	
+
 	public OrderDAO() {
-		this.baseQuery = new BaseQuery("root", "password123");
+		this.baseQuery = new BaseQuery();
 		this.orderDetailDAO = new OrderDetailDAO();
 		this.allOrders = this.getAllOrders();
 		this.resultsCustomerNumber = this.findCustomerNumbers();
 	}
-	
+
 	public ArrayList<Integer> getResultsCustomerNumber() {
 		return resultsCustomerNumber;
 	}
@@ -43,11 +42,11 @@ public class OrderDAO {
 	}
 
 	private ArrayList<Order> getAllOrders() {
-		
+
 		try {
 			ResultSet results = this.baseQuery.useTable("orders");
-			
-			while(results.next()) {
+
+			while (results.next()) {
 				int orderNumber = results.getInt("orderNumber");
 				Date orderDate = results.getDate("orderDate");
 				Date requiredDate = results.getDate("requiredDate");
@@ -55,11 +54,12 @@ public class OrderDAO {
 				String status = results.getString("status");
 				String comments = results.getString("comments");
 				int customerNumber = results.getInt("customerNumber");
-				
-				Order newOrder = new Order(orderNumber, orderDate, requiredDate, shippedDate, status, comments, customerNumber);
-				
+
+				Order newOrder = new Order(orderNumber, orderDate, requiredDate, shippedDate, status, comments,
+						customerNumber);
+
 				this.allOrders.add(newOrder);
-				
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

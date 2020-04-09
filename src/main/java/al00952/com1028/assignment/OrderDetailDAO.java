@@ -23,16 +23,15 @@ public class OrderDetailDAO {
 	private ArrayList<Double> resultsOrderTotals = new ArrayList<Double>();
 
 	public OrderDetailDAO() {
-		this.baseQuery = new BaseQuery("root", "password123");
+		this.baseQuery = new BaseQuery();
 		this.allOrderDetails = this.getAllOrderDetails();
 		this.uniqueOrderNumbers = this.sortByUniqueOrderNumber();
 		this.uniqueOrderTotals = this.calculateEachOrderNumber();
 		this.sortByTotalOrderAmount();
 	}
-	
-	
+
 	private void sortByTotalOrderAmount() {
-		for (int i = 0; i < this.uniqueOrderTotals.size(); i++) {		
+		for (int i = 0; i < this.uniqueOrderTotals.size(); i++) {
 			if (this.uniqueOrderTotals.get(i) > 25000) {
 				this.resultsOrderNumbers.add(this.uniqueOrderNumbers.get(i));
 				this.resultsOrderTotals.add(this.uniqueOrderTotals.get(i));
@@ -44,16 +43,15 @@ public class OrderDetailDAO {
 		return resultsOrderNumbers;
 	}
 
-
 	public ArrayList<Double> getResultsOrderTotals() {
 		return resultsOrderTotals;
 	}
-	
+
 	private ArrayList<Double> calculateEachOrderNumber() {
 		double totalOrderAmount = 0;
-	
+
 		ArrayList<Double> uniqueOrderTotals = new ArrayList<Double>();
-		
+
 		for (int orderNumber : this.uniqueOrderNumbers) {
 			for (OrderDetail orderDetail : this.allOrderDetails) {
 				if (orderDetail.getOrderNumber() == orderNumber) {
@@ -65,19 +63,19 @@ public class OrderDetailDAO {
 		}
 		return uniqueOrderTotals;
 	}
-	
+
 	// This method is used to round the total order amount to 2 d.p.
 	private static double twoDecimalPlaces(double value) {
-	    BigDecimal bd = BigDecimal.valueOf(value);
-	    bd = bd.setScale(2, RoundingMode.HALF_UP);
-	    return bd.doubleValue();
+		BigDecimal bd = BigDecimal.valueOf(value);
+		bd = bd.setScale(2, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
-	
+
 	// We know that the data is inserted by OrderNumber so we can search adjacently
 	private ArrayList<Integer> sortByUniqueOrderNumber() {
 		int prevOrderNumber = 0;
 		ArrayList<Integer> uniqueOrderNumbers = new ArrayList<Integer>();
-		
+
 		for (OrderDetail orderDetail : this.allOrderDetails) {
 			if (orderDetail.getOrderNumber() != prevOrderNumber) {
 				uniqueOrderNumbers.add(orderDetail.getOrderNumber());
@@ -86,7 +84,7 @@ public class OrderDetailDAO {
 		}
 		return uniqueOrderNumbers;
 	}
-	
+
 	private ArrayList<OrderDetail> getAllOrderDetails() {
 		try {
 			ResultSet results = this.baseQuery.useTable("orderdetails");

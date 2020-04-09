@@ -13,22 +13,22 @@ import java.util.ArrayList;
 public class Requirement1 {
 	private ProductDAO productDAO;
 	private ProductLineDAO productLineDAO;
-	
+
 	public Requirement1() {
 		this.productDAO = new ProductDAO();
 		this.productLineDAO = new ProductLineDAO();
 	}
-	
+
 	public String printMatchingRequirements() {
 		ArrayList<Product> allProducts = this.productDAO.returnAllProducts();
 		ArrayList<ProductLine> allProductLines = this.productLineDAO.returnAllProductLines();
 		StringBuffer buffer = new StringBuffer();
-				
+
 		for (ProductLine productLine : allProductLines) {
 			buffer.append("\n----------");
 			buffer.append(productLine.getProductLine());
 			buffer.append("----------\n");
-			
+
 			for (Product product : allProducts) {
 				if (product.getProductLine().contentEquals(productLine.getProductLine())) {
 					buffer.append(product.getProductCode());
@@ -45,5 +45,5 @@ public class Requirement1 {
 		Requirement1 requirement1 = new Requirement1();
 		System.out.print(requirement1.printMatchingRequirements());
 	}
-	
+
 }

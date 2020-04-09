@@ -3,7 +3,8 @@ package al00952.com1028.assignment;
 import java.sql.Date;
 
 /**
- * Template for an Order Object (i.e. a singular row with field data from the 'orders' table).
+ * Template for an Order Object (i.e. a singular row with field data from the
+ * 'orders' table).
  * 
  * This class is part of Requirement 3 (Set H).
  * 
@@ -18,8 +19,9 @@ public class Order {
 	private String status;
 	private String comments;
 	private int customerNumber;
-	
-	public Order(int orderNumber, Date orderDate, Date requiredDate, Date shippedDate, String status, String comments, int customerNumber) {
+
+	public Order(int orderNumber, Date orderDate, Date requiredDate, Date shippedDate, String status, String comments,
+			int customerNumber) {
 		this.orderNumber = orderNumber;
 		this.orderDate = orderDate;
 		this.requiredDate = requiredDate;

@@ -8,13 +8,14 @@ import java.sql.Statement;
 
 /**
  * This class is used to establish a database connection to your local SQL
- * server. 
+ * server.
  * 
- * This assumes the mySQL ClassicModels database is already installed on
- * your end.
+ * This assumes the mySQL ClassicModels database is already installed and set-up
+ * on your end.
  * 
  * NOTE: Change BaseQuery parameter values to fit your mySQL credentials (i.e.
- * my username and password is 'root' and 'password123', but yours may be different)
+ * my username and password is 'root' and 'password123', but yours may be
+ * different)
  * 
  * @author Provided by Santanu Dash
  * @author Modified by Andy Lee
@@ -24,10 +25,13 @@ public class BaseQuery {
 	protected Connection con;
 	private final String db = "jdbc:mysql://localhost:3306/classicmodels?serverTimezone=GMT";
 
-	public BaseQuery(String uname, String pwd) {
+	public BaseQuery() {
 		try {
 			// Class.forName("com.mysql.jdbc.Driver");
 			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+			// Change these values to suit your mySQL Login credentials
+			String uname = "root";
+			String pwd = "password123";
 			con = DriverManager.getConnection(db, uname, pwd);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -40,8 +44,9 @@ public class BaseQuery {
 		ResultSet rs = s.executeQuery(query);
 		return rs;
 	}
-	
-	// This method is used for JUnit Test Cases only - verifies correct data retrieval from ClassicModels DB
+
+	// This method is used for JUnit Test Cases only - verifies correct data
+	// retrieval from ClassicModels DB
 	protected ResultSet customSQLstatement(String query) throws SQLException {
 		ResultSet rs = con.createStatement().executeQuery(query);
 		return rs;

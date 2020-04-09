@@ -18,17 +18,17 @@ public class PaymentDAO {
 	private BaseQuery baseQuery;
 	private ArrayList<Payment> allPayments = new ArrayList<Payment>();
 	private ArrayList<Payment> allPaymentsByDate = new ArrayList<Payment>();
-	
+
 	public PaymentDAO() {
-		this.baseQuery = new BaseQuery("root", "password123");
+		this.baseQuery = new BaseQuery();
 		this.allPayments = this.getAllPayments();
 		this.allPaymentsByDate = this.sortAllPaymentsByDate();
 	}
-		
+
 	public ArrayList<Payment> getAllPaymentsByDate() {
 		return allPaymentsByDate;
 	}
-	
+
 	private ArrayList<Payment> sortAllPaymentsByDate() {
 		ArrayList<Payment> allPaymentsByDate = this.allPayments;
 		Collections.sort(allPaymentsByDate);
@@ -38,22 +38,22 @@ public class PaymentDAO {
 	private ArrayList<Payment> getAllPayments() {
 		try {
 			ResultSet results = this.baseQuery.useTable("payments");
-			
+
 			while (results.next()) {
 				int customerNumber = results.getInt("customerNumber");
 				String checkNumber = results.getString("checkNumber");
 				Date paymentDate = results.getDate("paymentDate");
 				double amount = results.getDouble("amount");
-				
+
 				Payment newPayment = new Payment(customerNumber, checkNumber, paymentDate, amount);
-				
+
 				this.allPayments.add(newPayment);
 			}
-				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return this.allPayments;
 	}
-	
+
 }

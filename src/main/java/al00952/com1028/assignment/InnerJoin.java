@@ -13,7 +13,7 @@ public class InnerJoin {
 	private String customerName;
 	private int orderNumber;
 	private double orderTotal;
-	
+
 	public InnerJoin(int customerNumber, String customerName, int orderNumber, double orderTotal) {
 		this.customerNumber = customerNumber;
 		this.customerName = customerName;
@@ -24,7 +24,7 @@ public class InnerJoin {
 	public int getCustomerNumber() {
 		return customerNumber;
 	}
-	
+
 	public String getCustomerName() {
 		return customerName;
 	}
