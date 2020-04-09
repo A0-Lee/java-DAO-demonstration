@@ -15,19 +15,14 @@ import java.util.ArrayList;
 public class ProductLineDAO {
 	
 	private BaseQuery baseQuery;
-	private ArrayList<ProductLine> productLines;
+	private ArrayList<ProductLine> allProductLines = new ArrayList<ProductLine>();
 	
 	public ProductLineDAO() {
 		this.baseQuery = new BaseQuery("root", "password123");
-		this.productLines = new ArrayList<ProductLine>();
+		this.allProductLines = this.getAllProductLines();
 	}
 	
-	/**
-	 * This method gets all the rows from the SQL table "productlines" from the ClassicModels database
-	 * @return An ArrayList of ProductLines Objects 
-	 */
-	public ArrayList<ProductLine> getAllProductLines() {
-		
+	private ArrayList<ProductLine> getAllProductLines() {
 		try {
 			ResultSet results = this.baseQuery.useTable("productlines");
 			
@@ -36,17 +31,17 @@ public class ProductLineDAO {
 				String textDescription = results.getString("textDescription");
 				
 				ProductLine newProductLine = new ProductLine(productLine, textDescription);
-				this.productLines.add(newProductLine);
+				
+				this.allProductLines.add(newProductLine);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return this.productLines;
-		
+		return this.allProductLines;	
 	}
-
-	public ArrayList<ProductLine> getProductLines() {
-		return productLines;
+	
+	public ArrayList<ProductLine> returnAllProductLines(){
+		return this.allProductLines;
 	}
 	
 }

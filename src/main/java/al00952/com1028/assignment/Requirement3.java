@@ -3,6 +3,14 @@ package al00952.com1028.assignment;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This class is used to output Requirement 3 to console.
+ * 
+ * Requirement 3 - List the CustomerNames and OrderNumbers where an Order is > $25,000
+ * 
+ * @author Andy Lee
+ * 
+ */
 public class Requirement3 {
 	private CustomerDAO customerDAO;
 	private OrderDAO orderDAO;
@@ -35,7 +43,6 @@ public class Requirement3 {
 		
 		Collections.sort(resultsInnerJoins, new InnerJoinSort());
 		
-	
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < resultsInnerJoins.size(); i++) {
 			buffer.append("CustomerNumber: ");
@@ -52,15 +59,11 @@ public class Requirement3 {
 			buffer.append("\n");
 		}
 		return buffer.toString();
-		
-		
 	}
 
 	public static void main(String[] args) {
 		Requirement3 requirement3 = new Requirement3();
-		System.out.println(requirement3.printMatchingRequirement());
-		
-
+		System.out.print(requirement3.printMatchingRequirement());
 	}
-
+	
 }

@@ -16,44 +16,26 @@ import java.util.Date;
  */
 public class PaymentDAO {
 	private BaseQuery baseQuery;
-	private ArrayList<Payment> allPayments;
+	private ArrayList<Payment> allPayments = new ArrayList<Payment>();
+	private ArrayList<Payment> allPaymentsByDate = new ArrayList<Payment>();
 	
 	public PaymentDAO() {
 		this.baseQuery = new BaseQuery("root", "password123");
-		this.allPayments = new ArrayList<Payment>();
+		this.allPayments = this.getAllPayments();
+		this.allPaymentsByDate = this.sortAllPaymentsByDate();
+	}
+		
+	public ArrayList<Payment> getAllPaymentsByDate() {
+		return allPaymentsByDate;
 	}
 	
-	public ArrayList<String> getTotalPaymentsByDate() {
-		// Populate this.allPayments and sort by Date
-		this.sortAllPaymentsbyDate();
-		
-		ArrayList<String> totalPaymentsByDate = new ArrayList<String>();
-		
-		for (Payment payment : this.allPayments) {
-			totalPaymentsByDate.add("Date:  " + payment.getPaymentDate() + "  CustomerNumber:  " + payment.getCustomerNumber() + "  Amount:  " + String.format("%1$8.2f", payment.getAmount()) + "  CheckNumber:  " + payment.getCheckNumber());
-		}
-		return totalPaymentsByDate;
+	private ArrayList<Payment> sortAllPaymentsByDate() {
+		ArrayList<Payment> allPaymentsByDate = this.allPayments;
+		Collections.sort(allPaymentsByDate);
+		return allPaymentsByDate;
 	}
-	
-	public String printTotalPaymentsByDate() {
-		
-		StringBuffer buffer = new StringBuffer();
-		for (String printPayments : this.getTotalPaymentsByDate()) {
-			buffer.append(printPayments);
-			buffer.append("\r\n");
-		}
-		System.out.println(buffer.toString());
-		return buffer.toString();
-	}
-	
-	public ArrayList<Payment> sortAllPaymentsbyDate() {
-		Collections.sort(this.getAllPayments());
-		return this.allPayments;
-	}
-	
-	
-	public ArrayList<Payment> getAllPayments() {
-		
+
+	private ArrayList<Payment> getAllPayments() {
 		try {
 			ResultSet results = this.baseQuery.useTable("payments");
 			
@@ -64,6 +46,7 @@ public class PaymentDAO {
 				double amount = results.getDouble("amount");
 				
 				Payment newPayment = new Payment(customerNumber, checkNumber, paymentDate, amount);
+				
 				this.allPayments.add(newPayment);
 			}
 				
@@ -71,7 +54,6 @@ public class PaymentDAO {
 			e.printStackTrace();
 		}
 		return this.allPayments;
-		
 	}
-
+	
 }

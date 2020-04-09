@@ -65,8 +65,6 @@ public class OrderDAO {
 			e.printStackTrace();
 		}
 		return this.allOrders;
-		
-		
 	}
 
 }

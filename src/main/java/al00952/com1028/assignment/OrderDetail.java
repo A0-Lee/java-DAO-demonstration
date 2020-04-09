@@ -43,5 +43,4 @@ public class OrderDetail {
 		return orderLineNumber;
 	}
 
-
 }

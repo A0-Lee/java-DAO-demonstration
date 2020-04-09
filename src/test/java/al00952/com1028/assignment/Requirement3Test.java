@@ -38,18 +38,15 @@ public class Requirement3Test {
 				buffer.append("\n");
 			}
 			
-			assertEquals(buffer.toString(), requirement3.printMatchingRequirement());
+			System.out.print("\n--------------------------------\nRequirement 3:\n--------------------------------\n");
+			System.out.print(buffer.toString());
 			
-			System.out.println("Expected Results:\n------------------------------------");
-			System.out.println(buffer);
-			System.out.println("Actual Results:\n------------------------------------");
-			System.out.println(requirement3.printMatchingRequirement());
+			assertEquals(buffer.toString(), requirement3.printMatchingRequirement());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-
 	}
-
+	
 }
