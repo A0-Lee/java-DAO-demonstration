@@ -18,8 +18,9 @@ public class Requirement3Test {
 	@Test
 	public void requirement3Test() {
 		BaseQuery baseQuery = new BaseQuery();
+		Requirement3 requirement3 = new Requirement3();
+		
 		try {
-			Requirement3 requirement3 = new Requirement3();
 			ResultSet results = baseQuery.customSQLstatement(
 					"SELECT customers.customerName, customers.customerNumber, orderDetails.orderNumber, SUM(orderDetails.priceEach * orderDetails.quantityOrdered) AS orderTotal FROM customers INNER JOIN orders ON orders.customerNumber = customers.customerNumber INNER JOIN orderDetails ON orderDetails.orderNumber = orders.orderNumber GROUP BY orderNumber HAVING orderTotal > 25000");
 
@@ -48,7 +49,7 @@ public class Requirement3Test {
 			System.out.print("\n--------------------------------\nRequirement 3:\n--------------------------------\n");
 			System.out.print(buffer.toString());
 
-			assertEquals(buffer.toString(), requirement3.printMatchingRequirement());
+			assertEquals(buffer.toString(), requirement3.printMatchingRequirements());
 
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Andy Lee
  * 
  */
-public class Requirement1 {
+public class Requirement1 implements Requirement {
 	private ProductDAO productDAO;
 	private ProductLineDAO productLineDAO;
 

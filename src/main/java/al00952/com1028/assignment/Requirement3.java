@@ -12,7 +12,7 @@ import java.util.Collections;
  * @author Andy Lee
  * 
  */
-public class Requirement3 {
+public class Requirement3 implements Requirement {
 	private CustomerDAO customerDAO;
 	private OrderDAO orderDAO;
 	private OrderDetailDAO orderDetailDAO;
@@ -23,7 +23,7 @@ public class Requirement3 {
 		this.orderDetailDAO = new OrderDetailDAO();
 	}
 
-	public String printMatchingRequirement() {
+	public String printMatchingRequirements() {
 		ArrayList<String> resultsCustomerNames = this.customerDAO.getResultsCustomerNames();
 		ArrayList<Integer> resultsCustomerNumbers = this.orderDAO.getResultsCustomerNumber();
 		ArrayList<Integer> resultsOrderNumbers = this.orderDetailDAO.getResultsOrderNumbers();
@@ -64,7 +64,7 @@ public class Requirement3 {
 
 	public static void main(String[] args) {
 		Requirement3 requirement3 = new Requirement3();
-		System.out.print(requirement3.printMatchingRequirement());
+		System.out.print(requirement3.printMatchingRequirements());
 	}
 
 }
