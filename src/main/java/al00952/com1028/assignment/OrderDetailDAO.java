@@ -1,7 +1,5 @@
 package al00952.com1028.assignment;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,78 +12,37 @@ import java.util.ArrayList;
  * @author Andy Lee
  *
  */
-public class OrderDetailDAO {
-	private BaseQuery baseQuery;
+public class OrderDetailDAO extends AbstractDAO<OrderDetail> {
 	private ArrayList<OrderDetail> allOrderDetails = new ArrayList<OrderDetail>();
-	private ArrayList<Integer> uniqueOrderNumbers = new ArrayList<Integer>();
-	private ArrayList<Double> uniqueOrderTotals = new ArrayList<Double>();
 	private ArrayList<Integer> resultsOrderNumbers = new ArrayList<Integer>();
 	private ArrayList<Double> resultsOrderTotals = new ArrayList<Double>();
 
 	public OrderDetailDAO() {
-		this.baseQuery = new BaseQuery();
-		this.allOrderDetails = this.getAllOrderDetails();
-		this.uniqueOrderNumbers = this.sortByUniqueOrderNumber();
-		this.uniqueOrderTotals = this.calculateEachOrderNumber();
+		super();
+		this.allOrderDetails = this.findAllObjectData();
 		this.sortByTotalOrderAmount();
 	}
-
-	private void sortByTotalOrderAmount() {
-		for (int i = 0; i < this.uniqueOrderTotals.size(); i++) {
-			if (this.uniqueOrderTotals.get(i) > 25000) {
-				this.resultsOrderNumbers.add(this.uniqueOrderNumbers.get(i));
-				this.resultsOrderTotals.add(this.uniqueOrderTotals.get(i));
-			}
-		}
-	}
-
-	public ArrayList<Integer> getResultsOrderNumbers() {
-		return resultsOrderNumbers;
-	}
-
-	public ArrayList<Double> getResultsOrderTotals() {
-		return resultsOrderTotals;
-	}
-
-	private ArrayList<Double> calculateEachOrderNumber() {
+	
+	private ArrayList<Double> calculateEachOrderTotal() {
 		double totalOrderAmount = 0;
 
+		ArrayList<Integer> uniqueOrderNumbers = this.sortByUniqueOrderNumber();
 		ArrayList<Double> uniqueOrderTotals = new ArrayList<Double>();
 
-		for (int orderNumber : this.uniqueOrderNumbers) {
+		for (int orderNumber : uniqueOrderNumbers) {
 			for (OrderDetail orderDetail : this.allOrderDetails) {
 				if (orderDetail.getOrderNumber() == orderNumber) {
 					totalOrderAmount += orderDetail.getPriceEach() * orderDetail.getQuantityOrdered();
 				}
 			}
-			uniqueOrderTotals.add(twoDecimalPlaces(totalOrderAmount));
+			uniqueOrderTotals.add(totalOrderAmount);
 			totalOrderAmount = 0;
 		}
 		return uniqueOrderTotals;
 	}
-
-	// This method is used to round the total order amount to 2 d.p.
-	private static double twoDecimalPlaces(double value) {
-		BigDecimal bd = BigDecimal.valueOf(value);
-		bd = bd.setScale(2, RoundingMode.HALF_UP);
-		return bd.doubleValue();
-	}
-
-	// We know that the data is inserted by OrderNumber so we can search adjacently
-	private ArrayList<Integer> sortByUniqueOrderNumber() {
-		int prevOrderNumber = 0;
-		ArrayList<Integer> uniqueOrderNumbers = new ArrayList<Integer>();
-
-		for (OrderDetail orderDetail : this.allOrderDetails) {
-			if (orderDetail.getOrderNumber() != prevOrderNumber) {
-				uniqueOrderNumbers.add(orderDetail.getOrderNumber());
-				prevOrderNumber = orderDetail.getOrderNumber();
-			}
-		}
-		return uniqueOrderNumbers;
-	}
-
-	private ArrayList<OrderDetail> getAllOrderDetails() {
+	
+	@Override
+	protected ArrayList<OrderDetail> findAllObjectData() {
 		try {
 			ResultSet results = this.baseQuery.useTable("orderdetails");
 
@@ -105,6 +62,40 @@ public class OrderDetailDAO {
 			e.printStackTrace();
 		}
 		return this.allOrderDetails;
+	}
+	
+	public ArrayList<Integer> getResultsOrderNumbers() {
+		return resultsOrderNumbers;
+	}
+
+	public ArrayList<Double> getResultsOrderTotals() {
+		return resultsOrderTotals;
+	}
+
+	// We know that the data is inserted by OrderNumber so we can search adjacently
+		private ArrayList<Integer> sortByUniqueOrderNumber() {
+			int prevOrderNumber = 0;
+			ArrayList<Integer> uniqueOrderNumbers = new ArrayList<Integer>();
+
+			for (OrderDetail orderDetail : this.allOrderDetails) {
+				if (orderDetail.getOrderNumber() != prevOrderNumber) {
+					uniqueOrderNumbers.add(orderDetail.getOrderNumber());
+					prevOrderNumber = orderDetail.getOrderNumber();
+				}
+			}
+			return uniqueOrderNumbers;
+		}
+		
+	private void sortByTotalOrderAmount() {
+		ArrayList<Integer> uniqueOrderNumbers = this.sortByUniqueOrderNumber();
+		ArrayList<Double> uniqueOrderTotals = this.calculateEachOrderTotal();
+		
+		for (int i = 0; i < uniqueOrderTotals.size(); i++) {
+			if (uniqueOrderTotals.get(i) > 25000) {
+				this.resultsOrderNumbers.add(uniqueOrderNumbers.get(i));
+				this.resultsOrderTotals.add(uniqueOrderTotals.get(i));
+			}
+		}
 	}
 
 }

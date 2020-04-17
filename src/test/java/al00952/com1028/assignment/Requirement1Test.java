@@ -17,7 +17,7 @@ public class Requirement1Test {
 	@Test
 	public void requirement1Test() {
 		BaseQuery baseQuery = new BaseQuery();
-		Requirement1 requirement1 = new Requirement1();
+		Requirement1Impl requirement1 = new Requirement1Impl();
 
 		try {
 			// This is needed as GROUP_CONCAT for Classic Cars exceeds the default 1024
@@ -41,7 +41,7 @@ public class Requirement1Test {
 			System.out.print("--------------------------------\nRequirement 1:\n--------------------------------");
 			System.out.print(buffer.toString());
 
-			assertEquals(buffer.toString(), requirement1.printMatchingRequirements());
+			assertEquals(buffer.toString(), requirement1.printMatchingRequirement());
 
 		} catch (SQLException e) {
 			e.printStackTrace();

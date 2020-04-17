@@ -12,17 +12,16 @@ import java.util.ArrayList;
  * @author Andy Lee
  *
  */
-public class ProductLineDAO {
-
-	private BaseQuery baseQuery;
+public class ProductLineDAO extends AbstractDAO<ProductLine> {
 	private ArrayList<ProductLine> allProductLines = new ArrayList<ProductLine>();
 
 	public ProductLineDAO() {
-		this.baseQuery = new BaseQuery();
-		this.allProductLines = this.getAllProductLines();
+		super();
+		this.allProductLines = this.findAllObjectData();
 	}
 
-	private ArrayList<ProductLine> getAllProductLines() {
+	@Override
+	protected ArrayList<ProductLine> findAllObjectData() {
 		try {
 			ResultSet results = this.baseQuery.useTable("productlines");
 
@@ -39,8 +38,8 @@ public class ProductLineDAO {
 		}
 		return this.allProductLines;
 	}
-
-	public ArrayList<ProductLine> returnAllProductLines() {
+	
+	public ArrayList<ProductLine> getAllProductLines() {
 		return this.allProductLines;
 	}
 

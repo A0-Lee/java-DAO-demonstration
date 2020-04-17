@@ -10,18 +10,18 @@ import java.util.ArrayList;
  * @author Andy Lee
  * 
  */
-public class Requirement1 implements Requirement {
+public class Requirement1Impl implements Requirement {
 	private ProductDAO productDAO;
 	private ProductLineDAO productLineDAO;
 
-	public Requirement1() {
+	public Requirement1Impl() {
 		this.productDAO = new ProductDAO();
 		this.productLineDAO = new ProductLineDAO();
 	}
 
-	public String printMatchingRequirements() {
-		ArrayList<Product> allProducts = this.productDAO.returnAllProducts();
-		ArrayList<ProductLine> allProductLines = this.productLineDAO.returnAllProductLines();
+	public String printMatchingRequirement() {
+		ArrayList<Product> allProducts = this.productDAO.getAllProducts();
+		ArrayList<ProductLine> allProductLines = this.productLineDAO.getAllProductLines();
 		StringBuffer buffer = new StringBuffer();
 
 		for (ProductLine productLine : allProductLines) {
@@ -42,8 +42,8 @@ public class Requirement1 implements Requirement {
 	}
 
 	public static void main(String[] args) {
-		Requirement1 requirement1 = new Requirement1();
-		System.out.print(requirement1.printMatchingRequirements());
+		Requirement1Impl requirement1 = new Requirement1Impl();
+		System.out.print(requirement1.printMatchingRequirement());
 	}
 
 }

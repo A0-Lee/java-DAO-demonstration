@@ -11,24 +11,19 @@ import java.util.ArrayList;
  * 
  * @author Andy Lee
  */
-public class CustomerDAO {
-	private BaseQuery baseQuery;
+public class CustomerDAO extends AbstractDAO<Customer> {
 	private ArrayList<Customer> allCustomers = new ArrayList<Customer>();
 	private ArrayList<String> resultsCustomerNames = new ArrayList<String>();
+	private OrderDAO orderDAO = new OrderDAO();
 
 	public CustomerDAO() {
-		this.baseQuery = new BaseQuery();
-		this.allCustomers = this.getAllCustomers();
+		super();
+		this.allCustomers = this.findAllObjectData();
 		this.resultsCustomerNames = this.findCustomerNames();
 	}
 
-	public ArrayList<String> getResultsCustomerNames() {
-		return resultsCustomerNames;
-	}
-
 	private ArrayList<String> findCustomerNames() {
-		OrderDAO orderDAO = new OrderDAO();
-		ArrayList<Integer> resultsCustomerNumbers = orderDAO.getResultsCustomerNumber();
+		ArrayList<Integer> resultsCustomerNumbers = this.orderDAO.getResultsCustomerNumber();
 		ArrayList<String> resultsCustomerNames = new ArrayList<String>();
 
 		for (int customerNumber : resultsCustomerNumbers) {
@@ -41,8 +36,8 @@ public class CustomerDAO {
 		return resultsCustomerNames;
 	}
 
-	private ArrayList<Customer> getAllCustomers() {
-
+	@Override
+	protected ArrayList<Customer> findAllObjectData() {
 		try {
 			ResultSet results = this.baseQuery.useTable("customers");
 
@@ -72,6 +67,10 @@ public class CustomerDAO {
 			e.printStackTrace();
 		}
 		return this.allCustomers;
+	}
+	
+	public ArrayList<String> getResultsCustomerNames() {
+		return resultsCustomerNames;
 	}
 
 }

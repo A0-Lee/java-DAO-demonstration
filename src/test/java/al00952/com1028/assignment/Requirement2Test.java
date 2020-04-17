@@ -19,7 +19,7 @@ public class Requirement2Test {
 	@Test
 	public void requirement2Test() {
 		BaseQuery baseQuery = new BaseQuery();
-		Requirement2 requirement2 = new Requirement2();
+		Requirement2Impl requirement2 = new Requirement2Impl();
 
 		try {
 			ResultSet results = baseQuery.customSQLstatement(
@@ -46,7 +46,7 @@ public class Requirement2Test {
 			System.out.print("\n--------------------------------\nRequirement 2:\n--------------------------------\n");
 			System.out.print(buffer.toString());
 
-			assertEquals(buffer.toString(), requirement2.printMatchingRequirements());
+			assertEquals(buffer.toString(), requirement2.printMatchingRequirement());
 
 		} catch (SQLException e) {
 			e.printStackTrace();

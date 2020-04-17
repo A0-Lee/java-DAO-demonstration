@@ -13,7 +13,7 @@ import java.sql.Statement;
  * This assumes the mySQL ClassicModels database is already installed and set-up
  * on your end.
  * 
- * NOTE: Change BaseQuery parameter values to fit your mySQL credentials (i.e.
+ * NOTE: Change BaseQuery constructor values to fit your mySQL credentials (i.e.
  * my username and password is 'root' and 'password123', but yours may be
  * different)
  * 

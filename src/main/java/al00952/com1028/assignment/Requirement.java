@@ -14,6 +14,6 @@ public interface Requirement {
 	 * 
 	 * @return The expected Output for the respective Requirement.
 	 */
-	public String printMatchingRequirements();
+	public String printMatchingRequirement();
 
 }

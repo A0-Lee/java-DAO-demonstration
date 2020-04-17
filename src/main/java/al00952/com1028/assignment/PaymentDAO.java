@@ -14,28 +14,18 @@ import java.util.Date;
  * @author Andy Lee
  *
  */
-public class PaymentDAO {
-	private BaseQuery baseQuery;
+public class PaymentDAO extends AbstractDAO<Payment> {
 	private ArrayList<Payment> allPayments = new ArrayList<Payment>();
 	private ArrayList<Payment> allPaymentsByDate = new ArrayList<Payment>();
 
 	public PaymentDAO() {
-		this.baseQuery = new BaseQuery();
-		this.allPayments = this.getAllPayments();
+		super();
+		this.allPayments = this.findAllObjectData();
 		this.allPaymentsByDate = this.sortAllPaymentsByDate();
 	}
 
-	public ArrayList<Payment> getAllPaymentsByDate() {
-		return allPaymentsByDate;
-	}
-
-	private ArrayList<Payment> sortAllPaymentsByDate() {
-		ArrayList<Payment> allPaymentsByDate = this.allPayments;
-		Collections.sort(allPaymentsByDate);
-		return allPaymentsByDate;
-	}
-
-	private ArrayList<Payment> getAllPayments() {
+	@Override
+	protected ArrayList<Payment> findAllObjectData() {
 		try {
 			ResultSet results = this.baseQuery.useTable("payments");
 
@@ -54,6 +44,16 @@ public class PaymentDAO {
 			e.printStackTrace();
 		}
 		return this.allPayments;
+	}
+	
+	public ArrayList<Payment> getAllPaymentsByDate() {
+		return allPaymentsByDate;
+	}
+	
+	private ArrayList<Payment> sortAllPaymentsByDate() {
+		ArrayList<Payment> allPaymentsByDate = this.allPayments;
+		Collections.sort(allPaymentsByDate);
+		return allPaymentsByDate;
 	}
 
 }

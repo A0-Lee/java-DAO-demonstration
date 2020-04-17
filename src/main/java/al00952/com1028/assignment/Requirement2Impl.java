@@ -10,14 +10,14 @@ import java.util.ArrayList;
  * @author Andy Lee
  * 
  */
-public class Requirement2 implements Requirement {
+public class Requirement2Impl implements Requirement {
 	private PaymentDAO paymentDAO;
 
-	public Requirement2() {
+	public Requirement2Impl() {
 		this.paymentDAO = new PaymentDAO();
 	}
 
-	public String printMatchingRequirements() {
+	public String printMatchingRequirement() {
 		ArrayList<Payment> allPaymentsByDate = paymentDAO.getAllPaymentsByDate();
 		StringBuffer buffer = new StringBuffer();
 
@@ -36,8 +36,8 @@ public class Requirement2 implements Requirement {
 	}
 
 	public static void main(String[] args) {
-		Requirement2 requirement2 = new Requirement2();
-		System.out.print(requirement2.printMatchingRequirements());
+		Requirement2Impl requirement2 = new Requirement2Impl();
+		System.out.print(requirement2.printMatchingRequirement());
 	}
 
 }

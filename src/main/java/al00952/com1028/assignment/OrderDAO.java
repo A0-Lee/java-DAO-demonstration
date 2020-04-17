@@ -12,16 +12,14 @@ import java.util.ArrayList;
  * 
  * @author Andy Lee
  */
-public class OrderDAO {
-	private BaseQuery baseQuery;
-	private OrderDetailDAO orderDetailDAO;
+public class OrderDAO extends AbstractDAO<Order>{
 	private ArrayList<Order> allOrders = new ArrayList<Order>();
 	private ArrayList<Integer> resultsCustomerNumber = new ArrayList<Integer>();
+	private OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 
 	public OrderDAO() {
-		this.baseQuery = new BaseQuery();
-		this.orderDetailDAO = new OrderDetailDAO();
-		this.allOrders = this.getAllOrders();
+		super();
+		this.allOrders = this.findAllObjectData();
 		this.resultsCustomerNumber = this.findCustomerNumbers();
 	}
 
@@ -41,8 +39,8 @@ public class OrderDAO {
 		return this.resultsCustomerNumber;
 	}
 
-	private ArrayList<Order> getAllOrders() {
-
+	@Override
+	protected ArrayList<Order> findAllObjectData() {
 		try {
 			ResultSet results = this.baseQuery.useTable("orders");
 

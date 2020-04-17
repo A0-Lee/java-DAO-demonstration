@@ -12,18 +12,18 @@ import java.util.Collections;
  * @author Andy Lee
  * 
  */
-public class Requirement3 implements Requirement {
+public class Requirement3Impl implements Requirement {
 	private CustomerDAO customerDAO;
 	private OrderDAO orderDAO;
 	private OrderDetailDAO orderDetailDAO;
 
-	public Requirement3() {
+	public Requirement3Impl() {
 		this.customerDAO = new CustomerDAO();
 		this.orderDAO = new OrderDAO();
 		this.orderDetailDAO = new OrderDetailDAO();
 	}
 
-	public String printMatchingRequirements() {
+	public String printMatchingRequirement() {
 		ArrayList<String> resultsCustomerNames = this.customerDAO.getResultsCustomerNames();
 		ArrayList<Integer> resultsCustomerNumbers = this.orderDAO.getResultsCustomerNumber();
 		ArrayList<Integer> resultsOrderNumbers = this.orderDetailDAO.getResultsOrderNumbers();
@@ -63,8 +63,8 @@ public class Requirement3 implements Requirement {
 	}
 
 	public static void main(String[] args) {
-		Requirement3 requirement3 = new Requirement3();
-		System.out.print(requirement3.printMatchingRequirements());
+		Requirement3Impl requirement3 = new Requirement3Impl();
+		System.out.print(requirement3.printMatchingRequirement());
 	}
 
 }
