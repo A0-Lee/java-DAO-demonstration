@@ -22,14 +22,14 @@ public class Requirement3Test {
 		
 		try {
 			ResultSet results = baseQuery.customSQLstatement(
-					"SELECT customers.customerName, customers.customerNumber, orderDetails.orderNumber, SUM(orderDetails.priceEach * orderDetails.quantityOrdered) AS orderTotal FROM customers INNER JOIN orders ON orders.customerNumber = customers.customerNumber INNER JOIN orderDetails ON orderDetails.orderNumber = orders.orderNumber GROUP BY orderNumber HAVING orderTotal > 25000");
+					"SELECT customers.customerName, customers.customerNumber, orderdetails.orderNumber, SUM(orderdetails.priceEach * orderdetails.quantityOrdered) AS orderTotal FROM customers INNER JOIN orders ON orders.customerNumber = customers.customerNumber INNER JOIN orderdetails ON orderdetails.orderNumber = orders.orderNumber GROUP BY orderNumber HAVING orderTotal > 25000 ORDER BY customerNumber");
 
 			StringBuffer buffer = new StringBuffer();
 
 			while (results.next()) {
 				String customerName = results.getString("customers.customerName");
 				int customerNumber = results.getInt("customers.customerNumber");
-				int orderNumber = results.getInt("orderDetails.orderNumber");
+				int orderNumber = results.getInt("orderdetails.orderNumber");
 				double orderTotal = results.getDouble("orderTotal");
 
 				buffer.append("CustomerNumber: ");

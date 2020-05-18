@@ -1,10 +1,10 @@
 package al00952.com1028.assignment;
 
 /**
- * Creates a new object based on the Inner Join attributes for R3.
+ * Creates a new object based on the Inner Join attributes for Requirement 3.
  * 
- * This class joins the attributes of the classes Customer and Order as well as
- * the calculated orderTotal from OrderDAO.
+ * This class performs an inner join of the Customer and Order classes' attributes as well as
+ * the orderTotal calculated from OrderDAO.
  * 
  * This class is part of Requirement 3 (Set H).
  * 

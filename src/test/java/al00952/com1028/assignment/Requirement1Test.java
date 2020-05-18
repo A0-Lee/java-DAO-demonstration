@@ -24,17 +24,17 @@ public class Requirement1Test {
 			// character limit
 			baseQuery.customSQLstatement("SET SESSION group_concat_max_len = 10000");
 			ResultSet results = baseQuery.customSQLstatement(
-					"SELECT productLine, GROUP_CONCAT(productCode, CONCAT(' - '), productName SEPARATOR '\n') AS productNames FROM products GROUP BY productLine");
+					"SELECT productLine, GROUP_CONCAT(productCode, CONCAT(' - '), productName SEPARATOR '\n') AS uniqueProducts FROM products GROUP BY productLine");
 			StringBuffer buffer = new StringBuffer();
 
 			while (results.next()) {
 				String productLine = results.getString("productLine");
-				String productNames = results.getString("productNames");
+				String uniqueProducts = results.getString("uniqueProducts");
 
 				buffer.append("\n----------");
 				buffer.append(productLine);
 				buffer.append("----------\n");
-				buffer.append(productNames);
+				buffer.append(uniqueProducts);
 				buffer.append("\n");
 			}
 
